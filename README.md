@@ -31,8 +31,8 @@ To perform a comparative analysis of steganography techniques in order to ascert
 
 ## Screenshots
 
-![Computing Time](ss/compute table.png)
+![Computing Time](https://raw.githubusercontent.com/nikhilpujari/Steganography-/main/ss/compute%20table.png)
 
-![Graph 1](ss/graph 1.png)
+![Graph 1](https://github.com/nikhilpujari/Steganography-/blob/main/ss/graph%201.png?raw=true)
 
-![Graph 2](ss/graph 2.png)
+![Graph 2](https://github.com/nikhilpujari/Steganography-/blob/main/ss/graph%202.png?raw=true)
