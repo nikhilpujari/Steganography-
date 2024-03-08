@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Retrieve Password Using Steganography</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <main>
+    <div class="container">
+
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="d-flex justify-content-center py-4">
+                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                  <img src="assets/img/logo.png" alt="">
+                  <span class="d-none d-lg-block">Stegano Audit</span>
+                </a>
+              </div><!-- End Logo -->
+
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Retrieve your password</h5>
+                    <p class="text-center small">Enter your username & email to receive an encoded image on your registered email ID. This encoded image must be uploaded below to retrieve your password.</p>
+                  </div>
+
+                  <div class="row g-3 needs-validation" novalidate>
+
+                    <div class="col-12">
+                        <label for="yourUsername" class="form-label">Username</label>
+                        <div class="input-group has-validation">
+                          <span class="input-group-text" id="inputGroupPrepend">@</span>
+                          <input type="text" name="username" class="form-control" id="yourUsername" required>
+                          <div class="invalid-feedback">Please enter your username.</div>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <label for="yourEmail" class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                          <input type="text" name="username" class="form-control" id="yourEmail" required>
+                          <div class="invalid-feedback">Please enter your email.</div>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <button class="btn btn-primary w-100" type="submit"  onclick="encode(event);" >Receive Encoded Image</button>
+                      </div>
+
+                    <div class="col-12">
+                      <labelclass="form-label">Upload Encoded Image Received On Your Mail</label>
+                      <div class="input-group has-validation">
+                        <input type="file" name="imageFile" class="form-control" id="imageFile" required>
+                        <div class="invalid-feedback">Please enter your username.</div>
+                       <button class="btn btn-primary" onclick="decode(event);">Decode</button>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <input type="text" name="password" class="form-control" id="yourPassword" disabled>
+                      <div class="invalid-feedback">Your password:</div>
+                    </div>
+
+                    <div class="col-12">
+                        <p class="small mb-0">Login Again? <a href="pages-login.html">Login</a></p>
+                      </div>
+                    <div class="col-12">
+                      <p class="small mb-0">This encryption is performed using LSB technique</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script>
+    function decode(event){
+    event.preventDefault(); 
+    var button = event.currentTarget; // get a reference to the button element
+    var formData = new FormData();
+    formData.append("yourUsername", $("#yourUsername").val());
+    var fileInput = document.getElementById("imageFile");
+    const selectedFile = fileInput.files[0];
+    if (selectedFile) {
+      formData.append("imageFile", selectedFile.name);
+    }
+
+   formData.append("imageFile1", $("#imageFile").get(0).files[0]);
+   
+   if($("#yourUsername").val()=="" || $("#imageFile").val()=="" || $("#yourEmail").val()=="" )
+   {
+     alert("Some Mandatory Fields Unattended");
+   }
+   else{
+       $.ajax({
+       type:"POST",
+       url:"uploads/forgot_password.php",
+         data:formData,
+         processData: false,
+        contentType: false,
+        beforeSend: function() {
+            button.disabled = true; // disable the button while the request is being processed
+        },
+        success: function(response) {
+            console.log(response);
+          if($.trim(response)=="DENIED"){
+            alert('You are not authoried to decode this image');
+          }
+          else{
+            document.getElementById('yourPassword').value=response;
+          }
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr, status, error);
+        },
+        complete: function() {
+            button.disabled = false; // re-enable the button after the request is complete
+        }
+     });
+   }
+   }
+
+   function encode(event){
+        event.preventDefault(); 
+        var button = event.currentTarget; // get a reference to the button element
+        var formData = new FormData();
+        formData.append("yourUsername", $("#yourUsername").val());
+        formData.append("yourEmail", $("#yourEmail").val());
+    
+        if($("#yourUsername").val()=="" || $("#yourEmail").val()=="")
+        {
+            alert("Some mandatory field(s) missing.");
+        }
+        else{
+            $.ajax({
+            type:"POST",
+            url:"uploads/download_password.php",
+                data:formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    button.disabled = true; // disable the button while the request is being processed
+                },
+                success: function(response) {
+                  
+                  if($.trim(response)=="FAILED")
+                    alert("Sorry, no records found")
+                  else{
+                    var pattern = /Image Name:\s*(\S+)/;
+                    var match = response.match(pattern);
+                    if (match && match[1]) {
+                        var image_name = match[1];
+                    } 
+                    var url = URL.createObjectURL(new Blob([image_name], {type: 'image/png'}));
+
+                    // Create a link element and set its href attribute to the URL object
+                    var link = document.createElement("a");
+                    link.href = url;
+
+                    // Set the download attribute and filename of the link element
+                    link.download = image_name;
+
+                    // Append the link element to the document body
+                    document.body.appendChild(link);
+
+                    // Click the link element to trigger the download
+                    link.click();
+
+                    // Remove the link element from the document body
+                    document.body.removeChild(link);
+                  }
+                },
+        error: function(xhr, status, error) {
+            console.error(xhr, status, error);
+        },
+        complete: function() {
+            button.disabled = false; // re-enable the button after the request is complete
+        }
+     });
+   }
+   }
+ </script>
+</body>
+
+</html>
